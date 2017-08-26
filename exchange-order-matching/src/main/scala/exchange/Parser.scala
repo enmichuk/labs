@@ -1,6 +1,4 @@
-package exchange.parser
-
-import exchange._
+package exchange
 
 import scala.io.Source
 
@@ -13,7 +11,7 @@ trait Parser[T] {
 }
 
 trait FileReader {
-  protected def fileName: String
+  def fileName: String
 
   protected def lines: List[String] = {
     val stream = getClass.getResourceAsStream(s"/$fileName")
@@ -43,6 +41,6 @@ trait OrderParser extends Parser[Order] {
   def orders: List[Order] = parse
 }
 
-case class FileClientParser(fileName: String) extends ClientParser with FileReader
+class FileClientParser(val fileName: String) extends ClientParser with FileReader
 
-case class FileOrderParser(fileName: String) extends OrderParser with FileReader
+class FileOrderParser(val fileName: String) extends OrderParser with FileReader
